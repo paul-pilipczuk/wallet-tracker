@@ -1,11 +1,16 @@
+import {Routes, Route} from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
+import Portfolios from "./pages/Portfolios";
 
 export default function App() {
     return (
         <>
             <NavBar />
-            <Home />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/portfolios" element={<Portfolios />} />
+            </Routes>
         </>
     );
 }
