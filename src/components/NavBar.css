@@ -3,21 +3,10 @@
     color: var(--fg-primary);
     display: flex;
     align-items: center;
-    padding: var(--space-s) var(--space-m);
+    padding: 1rem 1.25rem;
     border-bottom: 1px solid var(--bg-hover);
 }
   
-.logo {
-    font-size: 1.25rem;
-    font-weight: 600;
-    cursor: pointer;
-    user-select: none;
-    transition: opacity 0.2s ease;
-}
-
-.logo:hover{
-    opacity: 0.75;
-}
   
 .navbar nav {
     margin-left: auto;
@@ -29,7 +18,7 @@
     list-style: none;
     gap: 1.5rem;
     margin: 0;
-    margin-right: auto;
+
 }
   
 .nav-list li {

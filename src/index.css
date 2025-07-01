@@ -56,3 +56,15 @@ svg {
   display: block;
   max-width: 100%;
 }
+.brand {
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 0 0 1rem;   
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  user-select: none;
+  margin: 0;                 
+  transition: opacity 0.2s ease;
+}
+.brand:hover { opacity: 0.8; }
