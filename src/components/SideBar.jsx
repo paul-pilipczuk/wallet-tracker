@@ -7,6 +7,9 @@ export default function SideBar() {
 
   return (
     <aside className="sidebar">
+
+      <NavLink to="/"   className="sidebar-logo">Wallet&nbsp;Tracker</NavLink>
+
       <NavLink to="/overview"   className="item">Overview</NavLink>
 
       

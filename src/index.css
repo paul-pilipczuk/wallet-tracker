@@ -6,7 +6,13 @@
   color-scheme: light dark;
   color: rgba(255 255 255 / 0.87);
   background-color: #242424;
+  --bg-outer:  #1f1f27; 
+  --bg-hover:  #2d2d3a; 
+  --fg-primary:#eee;    
+  --accent:    #2563eb; 
 
+  --space-s:   0.5rem;  
+  --space-m:   1.25rem;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

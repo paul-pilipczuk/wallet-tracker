@@ -1,3 +1,18 @@
+.sidebar-logo {
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 0 1.25rem 1rem;
+  text-decoration: none;  
+  color: inherit;
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.2s ease;
+}
+
+.sidebar-logo:hover {
+  opacity: 0.8;
+}
+
 .sidebar {
     width: 220px;
     background: #1f1f27;
