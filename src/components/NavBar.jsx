@@ -1,9 +1,11 @@
 import "./NavBar.css";
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
+    const navigate = useNavigate();
     return (
         <header className="navbar">
-            <h1 className="logo">Wallet Tracker</h1>
+            <h1 className="logo" onClick={()=> navigate("/")}>Wallet Tracker</h1>
 
             <nav>
                 <ul className="nav-list">
