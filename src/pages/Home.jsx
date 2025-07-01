@@ -8,7 +8,7 @@ export default function Home() {
         <main className="home">
             <section className="card">
                 <h2 className="card-title">Welcome to Wallet Tracker</h2>
-                <button className="explore-btn" onClick={() => navigate("/portfolios")}>
+                <button className="explore-btn" onClick={() => navigate("/overview")}>
                     Explore
                 </button>
             </section>

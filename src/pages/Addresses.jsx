@@ -1,0 +1,1 @@
+export default function Addresses() { return <h2>Addresses</h2>; }

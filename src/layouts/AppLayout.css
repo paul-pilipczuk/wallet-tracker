@@ -1,0 +1,9 @@
+.app-shell {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-panel {
+    flex: 1;
+    overflow-y: auto; 
+}
