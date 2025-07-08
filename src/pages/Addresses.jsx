@@ -19,6 +19,7 @@ export default function Addresses() {
     const [l2, setL2] = useState([]);
     const [addrInput, setAddrInput] = useState("");
     const [checked, setChecked] = useState({});
+    const [showForm, setShowForm] = useState(false);
 
     const handleAdd = () => {
         if (!selectedChain || !addrInput) return;
@@ -47,8 +48,8 @@ export default function Addresses() {
     };
 
     const inChainPicker = selectedChain === null;
-    const inL2Picker = selectedChain === "ETH" && l2.length === 0;
-    const inForm = selectedChain && (selectedChain !== "ETH" || l2.length > 0);
+    const inL2Picker = selectedChain === "ETH" && !showForm;;
+    const inForm = selectedChain && showForm;
 
     return (
         <div className="ad-wrapper">
@@ -61,7 +62,10 @@ export default function Addresses() {
                             <button
                                 key={chain}
                                 className="chain-box"
-                                onClick={() => setSelectedChain(chain)}
+                                onClick={() => {
+                                    setSelectedChain(chain);
+                                    setShowForm(chain !== 'ETH');
+                                }}
                             >
                                 <span className="icon">{CHAIN_ICONS[chain]}</span>
                                 <span className="label">{chain}</span>
@@ -71,6 +75,7 @@ export default function Addresses() {
                 </>
             )}
 
+            {/* --- ETH L2 PICKER --- */}
             {inL2Picker && (
                 <>
                     <button className="back-btn" onClick={() => setSelectedChain(null)}>
@@ -78,7 +83,7 @@ export default function Addresses() {
                     </button>
                     <h2 className="ad-title">Select ETH L2 network(s):</h2>
 
-                    <div className="add-chain-row">
+                    <div className="ad-l2-grid">
                         {ETH_L2.map((net) => (
                             <button
                                 key={net}
@@ -103,6 +108,15 @@ export default function Addresses() {
                             } />
                         Select all chains
                     </label>
+                    
+                    <button
+                        className={`continue-btn ${l2.length === 0 ? 'hidden' : ''}`}
+                        disabled={l2.length === 0}
+                        onClick={() => setShowForm(true)}
+                    >
+                        Continue →
+                    </button>
+                    
                 </>
             )}
 
@@ -112,9 +126,11 @@ export default function Addresses() {
                     <button
                         className="back-btn"
                         onClick={() => {
-                            if (selectedChain === "ETH") setL2([]);
-                            else setSelectedChain(null);
-
+                            if (selectedChain === "ETH") {
+                                setShowForm(false); 
+                            } else {
+                                setSelectedChain(null);
+                            }
                             setAddrInput("");
                             setChecked({});
                         }}
