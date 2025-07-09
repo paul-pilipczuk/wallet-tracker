@@ -1,6 +1,6 @@
 export const mockCollections = [
     {
-      id: "default",
+      id: "long-term-hodl",
       name: "Long-term HODL",
       assets: {
         BTC: [
@@ -18,7 +18,7 @@ export const mockCollections = [
     },
   
     {
-      id: "trading",
+      id: "trading-stack",
       name: "Trading stack",
       assets: {
         BTC: [{ address: "bc1q…987", usd: 30000 }],

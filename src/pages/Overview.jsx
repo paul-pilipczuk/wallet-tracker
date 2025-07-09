@@ -11,14 +11,23 @@ const COLORS = {
     SOL: "#00FFA3",
 };
 
+
 export default function Overview() {
-    /* collection selector */
-    const [selectedId, setSelectedId] = useState("default");
-    const collection = mockCollections.find((c) => c.id === selectedId);
+    // 1. Default to first collection’s id
+    const [selectedId, setSelectedId] = useState(
+      mockCollections[0]?.id || ""
+    );
   
-    /* totals + pie data derived from helpers */
-    const totalUsd = collectionTotals(collection);          
-    const pieData  = breakdownForPie(collection);           
+    // 2. Safely find—or fallback to—the first collection
+    const collection =
+      mockCollections.find((c) => c.id === selectedId) ||
+      mockCollections[0];
+  
+    // 3. Compute totals & breakdown
+    const totalUsd = collectionTotals(collection);
+  
+    // 4. Get breakdown array: [{ chain, usd, count }]
+    const pieData = breakdownForPie(collection);
   
     return (
       <div className="ov-wrapper">

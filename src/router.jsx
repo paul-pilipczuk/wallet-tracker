@@ -6,7 +6,7 @@ import AppLayout    from "./layouts/AppLayout";
 
 import Home        from "./pages/Home";
 import Overview    from "./pages/Overview";
-import Collections from "./pages/Collections";
+import CollectionsPage from "./pages/Collections"; 
 import Addresses   from "./pages/Addresses";
 import Analytics   from "./pages/Analytics";
 import Profile     from "./pages/Profile";
@@ -27,7 +27,8 @@ export const router = createBrowserRouter([
         element: <AppLayout />,          // sidebar shell
         children: [
           { path: "overview",    element: <Overview /> },
-          { path: "collections", element: <Collections /> },
+          { path: "collections/:id",    element: <CollectionsPage /> },
+          { path: "collections",        element: <CollectionsPage /> },
           { path: "addresses",   element: <Addresses /> },
           { path: "analytics",   element: <Analytics /> },
           { path: "profile",     element: <Profile /> },

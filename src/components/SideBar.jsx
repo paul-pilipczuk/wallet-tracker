@@ -1,12 +1,15 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { mockCollections } from "../data/mockCollections";
+
 import "./SideBar.css";
 
 export default function SideBar() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(true); 
   
-  const collections = []; // This would be fetched from an API or context in a real app, empty for now
+//  const collections = []; // This would be fetched from an API or context in a real app, empty for now
+  const collections = mockCollections; // Using mock data for now
 
   return (
     <aside className="sidebar">
@@ -25,24 +28,26 @@ export default function SideBar() {
       
       {open && (
         <ul className="sub-list">
-          {collections.length === 0 ? (
-            <li
+          {collections.map((c) => (
+            <li key={c.id}>
+              <NavLink
+                to={`/collections/${c.id}`}
+                className={({ isActive }) =>
+                  "sub-item" + (isActive ? " active" : "")
+                }
+              >
+                {c.name}
+              </NavLink>
+            </li>
+          ))}
+          <li>
+            <button
               className="sub-item new"
               onClick={() => navigate("/collections")}
             >
               ➕&nbsp;New Collection
-            </li>
-          ) : (
-            collections.map((c) => (
-              <li
-                key={c.id}
-                className="sub-item"
-                onClick={() => navigate(`/collections/${c.id}`)}
-              >
-                {c.name}
-              </li>
-            ))
-          )}
+            </button>
+          </li>
         </ul>
       )}
 
