@@ -1,32 +1,7 @@
-export const mockCollections = [
-    {
-      id: "long-term-hodl",
-      name: "Long-term HODL",
-      assets: {
-        BTC: [
-          { address: "bc1q…abcd", usd: 41000 },
-          { address: "bc1q…wxyz", usd: 23200 },
-        ],
-        ETH: [
-          { address: "0xabc…123", usd: 19800 },
-          { address: "0xdef…456", usd: 27000 },
-        ],
-        SOL: [
-          { address: "8h2…xyz", usd: 12456.78 },
-        ],
-      },
-    },
-  
-    {
-      id: "trading-stack",
-      name: "Trading stack",
-      assets: {
-        BTC: [{ address: "bc1q…987", usd: 30000 }],
-        ETH: [{ address: "0xaaa…bbb", usd: 50000 }],
-        SOL: [{ address: "9p9…zzz", usd: 18765.43 }],
-      },
-    },
-];
+import collectionsData from "./mCollections.json";
+
+
+export const mockCollections = collectionsData;
 
 export const collectionTotals = c =>
   Object.values(c.assets).flat().reduce((sum, a) => sum + a.usd, 0);

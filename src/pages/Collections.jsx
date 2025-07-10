@@ -1,38 +1,41 @@
 // src/pages/Collections.jsx
 import { useState } from "react";
 import {useEffect} from "react";
+import {useContext} from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { mockCollections, collectionTotals, breakdownForPie} from "../data/mockCollections";
+import { collectionTotals, breakdownForPie} from "../data/mockCollections";
+import { CollectionsContext } from "../contexts/CollectionsContext";
 import "./Collections.css";
 
 export default function CollectionsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // ★ Determine if in "new collection" mode (no id param)
+  // Determine if in "new collection" mode (no id param)
   const isNew = !id;
 
-  // ★ Blank template for a new collection
+  // Blank template for a new collection
   const newTemplate = { id: "", name: "", assets: { BTC: [], ETH: [], SOL: [] } };
 
-  // ★ Choose template or find existing
+  // Choose template or find existing
+  const {collections ,setCollections} = useContext(CollectionsContext);
   const collection = isNew
     ? newTemplate
-    : mockCollections.find((c) => c.id === id);
+    : collections.find((c) => c.id === id);
 
-  // ★ Guard: if neither new nor found, show fallback
+  // if neither new nor found, show fallback
   if (!collection) {
     return <p>Collection not found.</p>;
   }
 
   // header state
-  // ★ start name-editing if new
+  // start name-editing if new
   const [isEditingName, setIsEditingName] = useState(isNew);
   const [nameDraft, setNameDraft]       = useState(collection.name);
   const [menuOpen, setMenuOpen]         = useState(false);
 
 
-  useEffect(() => {
+  useEffect(() => { 
     setNameDraft(collection.name);
     setIsEditingName(isNew);
     setMenuOpen(false);
@@ -40,6 +43,14 @@ export default function CollectionsPage() {
 
   const handleSaveName = () => {
     // TODO: persist nameDraft back to your store/API
+    //setIsEditingName(false);
+    setCollections(prev =>
+        prev.map(c =>
+        c.id === id
+            ? { ...c, name: nameDraft }
+            : c
+        )
+    );
     setIsEditingName(false);
   };
 
@@ -55,6 +66,13 @@ export default function CollectionsPage() {
       navigate("/overview");
     }
   };
+
+  const addressEntries = Object.entries(collection.assets)
+    .flatMap(([chain, addr]) => addr.map((a) => ({...a , chain})))
+    .sort((a,b) => {
+        if (a.chain !== b.chain) return a.chain.localeCompare(b.chain);
+        return a.usd - b.usd;
+    }); 
 
   return (
     <div className="collections-wrapper">
@@ -100,7 +118,26 @@ export default function CollectionsPage() {
         </div>
       </header>
 
-      {/* next: summary panel & address list go here */}
+      <section className="address-list">
+        <table className="address-table">
+          <thead>
+            <tr>
+                <th>Chain</th>
+                <th>Address</th>
+                <th>Value (USD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {addressEntries.map(({address, chain, usd}) => (
+                <tr key = {`${chain}-${address}`}>
+                    <td>{chain}</td>
+                    <td>{address}</td>
+                    <td>${usd.toLocaleString()}</td>
+                </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
     </div>
   );
 }

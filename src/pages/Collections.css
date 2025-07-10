@@ -94,7 +94,33 @@
 /* styles for total & pie chart go here */
 
 /* ───────── ADDRESS LIST ───────── */
-/* styles for table or card list go here */
+.address-list {
+    margin-top: 1rem;
+  }
+  
+  .address-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .address-table th,
+  .address-table td {
+    text-align: left;
+    padding: 0.75rem 1rem;
+  }
+  
+  .address-table thead {
+    background: var(--bg-outer, #2d2d3a);
+  }
+  
+  .address-table tbody tr:nth-child(even) {
+    background: var(--bg-hover, #3c3c4a);
+  }
+  
+  .address-table tbody tr:hover {
+    background: var(--bg-active, #44475a);
+    cursor: pointer;
+  }
 
 /* ───────── MODAL & ANIMATION ───────── */
 /* styles for Add Address modal or transitions go here */

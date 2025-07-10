@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { mockCollections } from "../data/mockCollections";
+import { useContext } from "react";
+import { CollectionsContext } from "../contexts/CollectionsContext";
 
 import "./SideBar.css";
 
@@ -9,7 +10,8 @@ export default function SideBar() {
   const [open, setOpen] = useState(true); 
   
 //  const collections = []; // This would be fetched from an API or context in a real app, empty for now
-  const collections = mockCollections; // Using mock data for now
+//  const collections = mockCollections; // Using mock data for now
+  const { collections } = useContext(CollectionsContext);
 
   return (
     <aside className="sidebar">
