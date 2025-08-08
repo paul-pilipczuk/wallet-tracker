@@ -1,12 +1,13 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useState, useContext } from "react";
 import { CollectionsContext } from "../contexts/CollectionsContext";
 import "./SideBar.css";
 
 export default function SideBar() {
-  const navigate = useNavigate();
-  const [open, setOpen] = useState(true);
   const { collections } = useContext(CollectionsContext);
+
+  // start collapsed so spacing is consistent when closed
+  const [open, setOpen] = useState(false);
 
   return (
     <aside className="sidebar">
@@ -19,38 +20,62 @@ export default function SideBar() {
         Overview
       </NavLink>
 
+      {/* Toggle (no arrow) */}
       <div
         className="item collections-header"
         onClick={() => setOpen(!open)}
         role="button"
+        tabIndex={0}
+        onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setOpen(!open)}
+        aria-expanded={open}
       >
-        Collections {open ? "▾" : "▸"}
+        Collections
       </div>
 
-      {open && (
+      {/* wrapper ensures we can 100% remove space when collapsed */}
+      <div className="sub-section" data-open={open ? "true" : "false"}>
         <ul className="sub-list">
           {collections.length === 0 ? (
-            <li className="sub-item new" onClick={() => navigate("/collections")}>
-              ➕&nbsp;New Collection
+            <li>
+              <NavLink
+                to="/collections"
+                end
+                className={({ isActive }) =>
+                  "sub-item new" + (isActive ? " active" : "")
+                }
+              >
+                ➕&nbsp;New Collection
+              </NavLink>
             </li>
           ) : (
             <>
               {collections.map((c) => (
-                <li
-                  key={c.id}
-                  className="sub-item"
-                  onClick={() => navigate(`/collections/${c.id}`)}
-                >
-                  {c.name}
+                <li key={c.id}>
+                  <NavLink
+                    to={`/collections/${c.id}`}
+                    className={({ isActive }) =>
+                      "sub-item" + (isActive ? " active" : "")
+                    }
+                  >
+                    {c.name}
+                  </NavLink>
                 </li>
               ))}
-              <li className="sub-item new" onClick={() => navigate("/collections")}>
-                ➕&nbsp;New Collection
+              <li>
+                <NavLink
+                  to="/collections"
+                  end
+                  className={({ isActive }) =>
+                    "sub-item new" + (isActive ? " active" : "")
+                  }
+                >
+                  ➕&nbsp;New Collection
+                </NavLink>
               </li>
             </>
           )}
         </ul>
-      )}
+      </div>
 
       <NavLink
         to="/addresses"
@@ -66,6 +91,7 @@ export default function SideBar() {
       </NavLink>
 
       <div className="grow" />
+
       <NavLink
         to="/profile"
         className={({ isActive }) => "item" + (isActive ? " active" : "")}
