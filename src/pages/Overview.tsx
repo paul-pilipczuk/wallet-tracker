@@ -8,7 +8,9 @@ import "./Overview.css";
 export default function Overview() {
   const { collections } = useContext(CollectionsContext);
 
-  if (!collections || collections.length === 0) {
+  const [selectedId, setSelectedId] = useState(collections[0]?.id || "");
+
+  if (collections.length === 0) {
     return (
       <div className="ov-wrapper">
         <h2 className="ov-total">$0.00</h2>
@@ -17,7 +19,6 @@ export default function Overview() {
     );
   }
 
-  const [selectedId, setSelectedId] = useState(collections[0]?.id || "");
   const collection =
     collections.find((c) => c.id === selectedId) || collections[0];
 

@@ -1,4 +1,3 @@
-// src/pages/Collections.jsx
 import { useState, useEffect, useContext, useMemo } from "react";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
@@ -38,20 +37,20 @@ export default function CollectionsPage() {
   // Use template (new) or existing (by id)
   const collection = isNew ? newTemplate : collections.find((c) => c.id === id);
 
-  if (!collection) return <p>Collection not found.</p>;
-
   const [isEditingName, setIsEditingName] = useState(isNew);
-  const [nameDraft, setNameDraft] = useState(collection.name);
+  const [nameDraft, setNameDraft] = useState(collection?.name ?? "");
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    setNameDraft(collection.name);
+    setNameDraft(collection?.name ?? "");
     setIsEditingName(isNew);
     setMenuOpen(false);
-  }, [id, isNew, collection.name]);
+  }, [id, isNew, collection?.name]);
+
+  if (!collection) return <p>Collection not found.</p>;
 
   // Small helper to generate a URL-safe id from a name
-  const slugify = (str) =>
+  const slugify = (str: string) =>
     str
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
@@ -66,9 +65,9 @@ export default function CollectionsPage() {
 
     if (isNew) {
       // CREATE: build a unique id (slug + disambiguator if necessary)
-      let base = slugify(trimmed) || "collection";
+      const base = slugify(trimmed) || "collection";
       let candidate = base;
-      const exists = (x) => collections.some((c) => c.id === x);
+      const exists = (x: string) => collections.some((c) => c.id === x);
       if (exists(candidate)) {
         candidate = `${base}-${Date.now().toString(36).slice(-4)}`;
       }

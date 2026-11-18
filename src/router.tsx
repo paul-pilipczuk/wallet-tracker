@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import AppShell     from "./App.jsx";
+import AppShell     from "./App";
 import PublicLayout from "./layouts/PublicLayout";
 import AppLayout    from "./layouts/AppLayout";
 
