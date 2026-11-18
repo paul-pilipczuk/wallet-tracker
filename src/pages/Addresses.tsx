@@ -1,15 +1,16 @@
 import { useState, useContext } from 'react';
 import { CollectionsContext } from '../contexts/CollectionsContext';
+import type { Chain } from '../constants/chains';
 import { CHAIN_ICONS, ETH_L2 } from '../constants/chains';
 import './Addresses.css';
 
 export default function Addresses() {
   const { collections, setCollections } = useContext(CollectionsContext);
 
-  const [selectedChain, setSelectedChain] = useState(null);
-  const [l2, setL2] = useState([]);
+  const [selectedChain, setSelectedChain] = useState<Chain | null>(null);
+  const [l2, setL2] = useState<string[]>([]);
   const [addrInput, setAddrInput] = useState("");
-  const [checked, setChecked] = useState({});
+  const [checked, setChecked] = useState<Record<string, boolean>>({});
   const [showForm, setShowForm] = useState(false);
 
   const handleAdd = () => {
@@ -50,7 +51,7 @@ export default function Addresses() {
         <>
           <h2 className="ad-title">Select a chain:</h2>
           <div className="ad-chain-row">
-            {["BTC", "ETH", "SOL"].map((chain) => (
+            {(["BTC", "ETH", "SOL"] as Chain[]).map((chain) => (
               <button
                 key={chain}
                 className="chain-box"
